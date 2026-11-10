@@ -15,8 +15,8 @@ export function makeQ(c:Card,type:QT):Q{
   if(c.only&&c.only!=='tf')type=c.only
   if(type==='tf'&&c.only==='tf')type='mc'
   const hint=`Review “${tt}”. The answer has ${c.back.split(/\s+/).length} word(s) and starts with “${c.back[0]}”.`
-  const same=[...new Set(cards.filter(x=>x.topic===c.topic&&x.back!==c.back&&x.tf===undefined).map(x=>x.back))]
-  const other=[...new Set(cards.filter(x=>x.topic!==c.topic&&x.back!==c.back&&x.tf===undefined).map(x=>x.back))]
+  const same=[...new Set(cards.filter(x=>x.topic===c.topic&&x.back!==c.back&&x.tf===undefined&&!(c.alt||[]).includes(x.back)).map(x=>x.back))]
+  const other=[...new Set(cards.filter(x=>x.topic!==c.topic&&x.back!==c.back&&x.tf===undefined&&!(c.alt||[]).includes(x.back)).map(x=>x.back))]
   const wrong=c.opts??[...new Set([...sh(same),...sh(other)])].slice(0,3)
   const base={id:c.id+':'+type,card:c,type,hint,answer:c.back}
   if(type==='mc')return{...base,prompt:c.front,options:sh([c.back,...wrong])}

@@ -1,35 +1,35 @@
-// CONTENT LAYER — HUM 101 Semi-Final Coverage
+// CONTENT LAYER — HUM 101 Semi-Final: Part 1 True or False, Part 2 Multiple Choice
 // Replace src/data/content.ts with this file (and src/lib/quiz.ts with the matching quiz.ts).
 export interface Card{id:string;topic:string;term:string;front:string;back:string;alt?:string[];opts?:string[];only?:'mc'|'id'|'tf';tf?:boolean;why?:string}
 export interface Topic{id:string;subject:string;title:string;intro:string;remember:string;level:string;note?:string;meta?:string}
 
 const S='HUM 101 · Semi-Final'
 export const topics:Topic[]=[
-{id:'tf',subject:S,title:'Soulmaking: True or False',level:'Medium',
+{id:'tf',subject:S,meta:'Part 1 · True or False',title:'Soulmaking: True or False',level:'Medium',
  intro:'The 15 True or False statements about the major points of Soulmaking.',
  remember:'Soulmaking = an alternative venue for knowing OURSELVES and the real meaning of our everyday life. It develops the artist in us, uses imagination actively, can be innate or learned, has no time reference, and needs no professional artist. Watch out for “not” and “others” that flip the meaning.',
  note:'Your file has no answer key, so the answers are inferred from the Soulmaking definition. Items 1 and 10 are the least certain, so confirm them with your instructor.'},
-{id:'phases',subject:S,title:'The Phases of Soul Making',level:'Medium',
+{id:'phases',subject:S,meta:'Part 2 · Multiple Choice',title:'The Phases of Soul Making',level:'Medium',
  intro:'The five “S” phases: Seeking, Settling, Surrender, Soulmaking and Soaring.',
  remember:'Seeking (first phase) → Settling → Surrender → Soulmaking → Soaring. Seeking = looking for a discipline to make sense of the world. Surrender = accepting wounds, living in the darkness. Soulmaking = becoming an injured healer.'},
-{id:'crafts',subject:S,title:'Crafting & Improvisation',level:'Easy',
+{id:'crafts',subject:S,meta:'Part 2 · Multiple Choice',title:'Crafting & Improvisation',level:'Easy',
  intro:'Crafting images, stories, instruments, movements and techniques, plus improvisation.',
  remember:'Images = visual representations. Stories = personal feedback, values, feelings. Instruments = a bridge to the unknown (sounds). Movements = life’s rhythms. Techniques = the artist’s life experiences. Improvisation = unplanned, spontaneous.'},
-{id:'davinci',subject:S,title:'Leonardo da Vinci & the Seven Principles',level:'Hard',
+{id:'davinci',subject:S,meta:'Part 2 · Multiple Choice',title:'Leonardo da Vinci & the Seven Principles',level:'Hard',
  intro:'Da Vinci as the ultimate Renaissance man, and the seven principles from “How To Think Like Leonardo da Vinci”.',
  remember:'Curiosita (questions) · Dimostrazione (test through experience, esp. sight) · Sensazione (refine the senses) · Sfumato (embrace ambiguity) · Arte/Scienza (science + art balance) · Corporalita (grace, fitness) · Connesione (everything is connected).',
- note:'Your file spells the author as “Michael Belb”. The author of that book is usually written Michael J. Gelb. The file’s spelling is kept, and either spelling is accepted when typing.'},
-{id:'approp',subject:S,title:'Appropriation, Originality & Copyright',level:'Hard',
+ note:'Your file spells the author as “Michael Belb”. The author of that book is usually written Michael J. Gelb. The file’s spelling is kept.'},
+{id:'approp',subject:S,meta:'Part 2 · Multiple Choice',title:'Appropriation, Originality & Copyright',level:'Hard',
  intro:'Appropriation, originality, copyright, moral right, and the rights of attribution and integrity.',
  remember:'Copyright protects work from being copied without consent. Moral right: the artist can stop alterations that damage their integrity, even after a sale. Attribution = be identified as creator. Integrity = prevent derogatory treatment.'},
-{id:'cultural',subject:S,title:'Cultural Appropriation & Its Forms',level:'Hard',
+{id:'cultural',subject:S,meta:'Part 2 · Multiple Choice',title:'Cultural Appropriation & Its Forms',level:'Hard',
  intro:'Cultural appropriation vs appreciation vs denigration, and the types of appropriation.',
  remember:'Appreciation = respectful borrowing. Denigration = borrowing to humiliate. Types: object/material (tangible), non-material (stories, music), stylistic, subject, motif.',
- note:'In your file, Object appropriation and Material appropriation have almost the same definition. When typing the answer, either name is accepted for both.'},
-{id:'textile',subject:S,title:'Textile Art',level:'Easy',
+ note:'In your file, Object appropriation and Material appropriation have almost the same definition. They are never shown together as choices, to avoid confusion.'},
+{id:'textile',subject:S,meta:'Part 2 · Multiple Choice',title:'Textile Art',level:'Easy',
  intro:'Textile art and its forms: rugs, quilts, clothing, sewing, weaving, knitting and embroidery.',
  remember:'Weaving = two sets of yarns interlaced at right angles. Knitting = manipulating yarn. Sewing = stitches with needle and thread (Paleolithic era). Embroidery = decorating fabric with thread.'},
-{id:'phtex',subject:S,title:'Philippine Textiles: T’nalak, Dagmay & Pis-yabit',level:'Hard',
+{id:'phtex',subject:S,meta:'Part 2 · Multiple Choice',title:'Philippine Textiles: T’nalak, Dagmay & Pis-yabit',level:'Hard',
  intro:'T’nalak of the T’boli, its three stages, Dagmay of the Mandaya, and the Tausog Pis-yabit.',
  remember:'T’nalak: Kedungon (fibre prep from abaca) → Temogo (ikat dyeing with beeswax and natural pigments) → Semaki (burnishing with a cowrie shell). Fu Dalu guides the weaving. Dagmay = Mandaya, mud-dyed abaca. Pis-yabit = Tausog head-cloth.'}]
 
@@ -130,4 +130,6 @@ const phtex=withAlt(clue('phtex',[
 ['Tausog','The people who make the Pis-yabit head-cloth.']]),
 {"T'nalak":['Tnalak'],"T'boli":['Tboli']})
 
-export const cards:Card[]=[...tf,...phases,...crafts,...davinci,...approp,...cultural,...textile,...phtex]
+// Exam format: Part 1 = True or False, Part 2 = Multiple Choice (everything else)
+const mc=(cs:Card[]):Card[]=>cs.map(x=>({...x,only:'mc' as const}))
+export const cards:Card[]=[...tf,...mc([...phases,...crafts,...davinci,...approp,...cultural,...textile,...phtex])]
